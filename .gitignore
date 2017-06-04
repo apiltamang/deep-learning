@@ -3,5 +3,7 @@
 # Ignore downloaded datasets
 embeddings/data/
 embeddings/text8.zip
-
+*.p
 .ipynb_checkpoints/
+language-translation/data/
+__pycache__
