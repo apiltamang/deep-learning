@@ -1,4 +1,5 @@
 .DS_Store
+dcgan-svhn/*.pkl
 batch-norm/MNIST_data/
 # Ignore downloaded datasets
 embeddings/data/
