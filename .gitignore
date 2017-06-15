@@ -7,4 +7,5 @@ embeddings/text8.zip
 *.p
 .ipynb_checkpoints/
 language-translation/data/
+face_generation/data/
 __pycache__
