@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 
 def _print_success_message():
-    print('Tests Passed')
+    return print('Tests Passed')
 
 
 def test_folder_path(cifar10_dataset_folder_path):
@@ -47,14 +47,16 @@ def test_normalize(normalize):
 
 
 def test_one_hot_encode(one_hot_encode):
-    test_shape = np.random.choice(range(1000))
-    test_numbers = np.random.choice(range(10), test_shape)
+    n_test_shape = 1000
+    n_test_numbers = 10
+    test_shape = np.random.choice(range(n_test_shape))
+    test_numbers = np.random.choice(range(n_test_numbers), test_shape)
     one_hot_out = one_hot_encode(test_numbers)
 
     assert type(one_hot_out).__module__ == np.__name__,\
         'Not Numpy Object'
 
-    assert one_hot_out.shape == (test_shape, 10),\
+    assert one_hot_out.shape == (test_shape, n_test_numbers),\
         'Incorrect Shape. {} shape found'.format(one_hot_out.shape)
 
     n_encode_tests = 5
@@ -71,15 +73,6 @@ def test_one_hot_encode(one_hot_encode):
         'For the second call it returned\n' \
         '{}\n' \
         'Make sure you save the map of labels to encodings outside of the function.'.format(enc_labels, new_enc_labels)
-
-    for one_hot in new_enc_labels:
-        assert (one_hot==1).sum() == 1,\
-            'Each one-hot-encoded value should include the number 1 exactly once.\n' \
-            'Found {}\n'.format(one_hot)
-        assert (one_hot==0).sum() == len(one_hot)-1,\
-            'Each one-hot-encoded value should include zeros in all but one position.\n' \
-            'Found {}\n'.format(one_hot)
-
 
     _print_success_message()
 
