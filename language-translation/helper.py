@@ -13,7 +13,9 @@ def load_data(path):
     """
     input_file = os.path.join(path)
     with open(input_file, 'r', encoding='utf-8') as f:
-        return f.read()
+        data = f.read()
+
+    return data
 
 
 def preprocess_and_save_data(source_path, target_path, text_to_ids):
@@ -33,19 +35,17 @@ def preprocess_and_save_data(source_path, target_path, text_to_ids):
     source_text, target_text = text_to_ids(source_text, target_text, source_vocab_to_int, target_vocab_to_int)
 
     # Save Data
-    with open('preprocess.p', 'wb') as out_file:
-        pickle.dump((
-            (source_text, target_text),
-            (source_vocab_to_int, target_vocab_to_int),
-            (source_int_to_vocab, target_int_to_vocab)), out_file)
+    pickle.dump((
+        (source_text, target_text),
+        (source_vocab_to_int, target_vocab_to_int),
+        (source_int_to_vocab, target_int_to_vocab)), open('preprocess.p', 'wb'))
 
 
 def load_preprocess():
     """
     Load the Preprocessed Training data and return them in batches of <batch_size> or less
     """
-    with open('preprocess.p', mode='rb') as in_file:
-        return pickle.load(in_file)
+    return pickle.load(open('preprocess.p', mode='rb'))
 
 
 def create_lookup_tables(text):
@@ -67,16 +67,14 @@ def save_params(params):
     """
     Save parameters to file
     """
-    with open('params.p', 'wb') as out_file:
-        pickle.dump(params, out_file)
+    pickle.dump(params, open('params.p', 'wb'))
 
 
 def load_params():
     """
     Load parameters from file
     """
-    with open('params.p', mode='rb') as in_file:
-        return pickle.load(in_file)
+    return pickle.load(open('params.p', mode='rb'))
 
 
 def batch_data(source, target, batch_size):
